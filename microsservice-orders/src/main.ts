@@ -10,7 +10,7 @@ async function bootstrap() {
     .setDescription('Microsserviço para upload, criação e listagem de pedidos')
     .setVersion('1.0')
     .addTag('Pedidos')
-    // .addBearerAuth()
+    .addBearerAuth()
     .build();
 
   const document = SwaggerModule.createDocument(app, config);

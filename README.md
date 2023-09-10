@@ -26,3 +26,6 @@ yarn test:cov
 1. Utilizei como boilerplate um projeto que criei do zero, que se encontra [nesse repositório](https://github.com/acristoni/monorepo-front-microsservicos).
 
 2. Busquei na documentação do NestJs uma maneira de tratar o upload do documento .txt e tratar os dados. Encontrei [aqui](https://docs.nestjs.com/techniques/file-upload) um norte para a solução.
+
+3. Trabalhei na entidade, criei enuns para tratar de maneira apropriada os tipos de vendas e desenvolvi o serviço para salvar as informações no bd, utilizando as Promises para otimizar o processamento com múltiplas threads.
+
