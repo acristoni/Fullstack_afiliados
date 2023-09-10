@@ -3,11 +3,10 @@ import {
   InternalServerErrorException,
   NotFoundException,
 } from '@nestjs/common';
-import { CreateOrderDto } from './dto/create-order.dto';
-import { UpdateOrderDto } from './dto/update-order.dto';
 import { OrderEntity } from './order.entity';
 import { Repository } from 'typeorm';
 import { InjectRepository } from '@nestjs/typeorm';
+import { FileDto } from './dto/file.dto';
 
 @Injectable()
 export class OrderService {
@@ -38,38 +37,9 @@ export class OrderService {
     return order;
   }
 
-  async create(createOrderDto: CreateOrderDto) {
-    try {
-      const cliente = await this.orderRepository.insert(createOrderDto);
-
-      return {
-        message: 'Pedido criado com sucesso',
-        id: cliente.identifiers[0].id,
-      };
-    } catch (error) {
-      throw new InternalServerErrorException(error);
-    }
-  }
-
-  async update(id: string, updateOrderDto: UpdateOrderDto) {
-    await this.findOne(id);
-
-    return await this.orderRepository
-      .update(id, updateOrderDto)
-      .then(() => `Pedido id ${id} atualizado com sucesso!`)
-      .catch((error) => {
-        throw new InternalServerErrorException(error);
-      });
-  }
-
-  async remove(id: string) {
-    await this.findOne(id);
-
-    return await this.orderRepository
-      .delete({ id: id })
-      .then(() => `Pedido id ${id} excluído com sucesso!`)
-      .catch((error) => {
-        throw new InternalServerErrorException(error);
-      });
+  async processSalesFile(file: FileDto): Promise<string[]> {
+    const fileContent = file.buffer.toString('utf-8');
+    const lines = fileContent.split('\n');
+    return lines;
   }
 }

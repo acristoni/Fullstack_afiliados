@@ -40,8 +40,9 @@ import { AuthMiddleware } from './auth.middleware';
   controllers: [OrderController],
   providers: [OrderService],
 })
-export class OrderModule implements NestModule {
-  configure(consumer: MiddlewareConsumer) {
-    consumer.apply(AuthMiddleware).forRoutes('*');
-  }
-}
+// export class OrderModule implements NestModule {
+//   configure(consumer: MiddlewareConsumer) {
+//     consumer.apply(AuthMiddleware).forRoutes('*');
+//   }
+// }
+export class OrderModule {}

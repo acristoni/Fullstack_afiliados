@@ -7,12 +7,10 @@ async function bootstrap() {
 
   const config = new DocumentBuilder()
     .setTitle('Microsserviço-Pedidos')
-    .setDescription(
-      'Microsserviço para criação, atualização e autenticação de pedidos',
-    )
+    .setDescription('Microsserviço para upload, criação e listagem de pedidos')
     .setVersion('1.0')
     .addTag('Pedidos')
-    .addBearerAuth()
+    // .addBearerAuth()
     .build();
 
   const document = SwaggerModule.createDocument(app, config);
