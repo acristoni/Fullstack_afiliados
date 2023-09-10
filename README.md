@@ -1,4 +1,4 @@
-# TechSocial - Gestão de pedidos
+# Marcenaria Diferente - Afiliados Fullstack
 Mono-repo contendo o Front-end em ReactJs(NextJs) e (2 microsserviços - usuário e pedidos)back-end em NestJs, para a TechSocial.
 
 # Subir aplicação localmente
