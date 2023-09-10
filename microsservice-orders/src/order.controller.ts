@@ -51,7 +51,10 @@ export class OrderController {
   @Post('upload')
   @ApiConsumes('multipart/form-data')
   @UseInterceptors(FileInterceptor('file'))
-  async uploadFile(@Body() _data: StorageDto, @UploadedFile() file: FileDto) {
+  async uploadFile(
+    @Body() _data: StorageDto,
+    @UploadedFile() file: FileDto,
+  ): Promise<string> {
     return await this.orderService.processSalesFile(file);
   }
 }

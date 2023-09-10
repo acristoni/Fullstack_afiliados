@@ -5,23 +5,31 @@ import {
   CreateDateColumn,
   UpdateDateColumn,
 } from 'typeorm';
+import { TypeEnum } from './enums/type.enum';
+import { SignalEnum } from './enums/signal.enum';
 
 @Entity('order')
 export class OrderEntity {
   @PrimaryGeneratedColumn('uuid')
   id: string;
 
-  @Column({ type: 'varchar' })
-  user_id: string;
+  @Column({ type: 'enum', enum: TypeEnum })
+  type: TypeEnum;
 
-  @Column({ type: 'varchar' })
-  description: string;
+  @Column({ type: 'enum', enum: SignalEnum })
+  signal: SignalEnum;
 
-  @Column({ type: 'int' })
-  quantity: number;
+  @Column({ type: 'date' })
+  date: Date;
+
+  @Column({ type: 'varchar', length: 30 })
+  product: string;
 
   @Column({ type: 'double' })
   price: number;
+
+  @Column({ type: 'varchar', length: 20 })
+  seller: string;
 
   @CreateDateColumn({ name: 'created_at' })
   createdAt: Date;
