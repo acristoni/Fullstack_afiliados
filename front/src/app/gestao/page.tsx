@@ -6,17 +6,14 @@ import Typography from '@mui/material/Typography';
 import DataGrid from '@/components/DataGridOrders';
 import getOrders from '../../../service/getOrders.service';
 import { Order } from 'interfaces/order.interface';
-import { User } from 'interfaces/user.interface';
-import getUsers from 'service/getUsers.service';
 import ButtonUpload from '@/components/ButtonUpload';
+import formatCurrency from 'utils/formatCurrency';
 
 export default function Gestao() {
-  const [orderList, setOrderList] = useState<Order[]>();
-  const [userList, setUserList] = useState<User[]>()
+  const [orderList, setOrderList] = useState<{ allOrders:Order[], total:number}>();
   
   useEffect(()=>{
     getOrders(setOrderList)
-    getUsers(setUserList)
   },[]);
 
   return (
@@ -44,7 +41,13 @@ export default function Gestao() {
             </Typography>
           }
         </>
-        <ButtonUpload />
+        <Box display='flex' p={2}>
+          {
+            orderList?.total &&
+            <Typography fontWeight={700} fontSize={20}>Total: {formatCurrency(orderList?.total)}</Typography>
+          }
+          <ButtonUpload />
+        </Box>
       </Box>
     </Box>
   );

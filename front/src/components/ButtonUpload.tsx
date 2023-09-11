@@ -1,10 +1,8 @@
 import { Alert, Button, Input } from "@mui/material";
-import { useRouter } from "next/navigation";
 import { useEffect, useState } from "react";
 import { postUpload } from "service/postUpload";
 
 export default function ButtonUpload() {
-    const router = useRouter()
     const [file, setFile] = useState<File | null>(null);
 
     const handleChange = (event: React.ChangeEvent<HTMLInputElement>) => {

@@ -2,6 +2,7 @@ import { Body, Controller, Get, Param, Post } from '@nestjs/common';
 import { OrderService } from './order.service';
 import { ApiBearerAuth, ApiOperation, ApiTags } from '@nestjs/swagger';
 import { CreateSalesDto } from './dto/crete-sales.dto';
+import { OrderEntity } from './order.entity';
 
 @ApiBearerAuth()
 @ApiTags('Pedidos')
@@ -21,7 +22,7 @@ export class OrderController {
   @ApiOperation({
     summary: 'Lista todos os pedidos do sistema',
   })
-  async findAll() {
+  async findAll(): Promise<{ allOrders: OrderEntity[]; total: number }> {
     return await this.orderService.findAll();
   }
 

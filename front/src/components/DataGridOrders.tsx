@@ -1,16 +1,13 @@
 import { useEffect, useState } from 'react';
 import Box from '@mui/material/Box';
 import { DataGrid, GridColDef, ptBR } from '@mui/x-data-grid';
-import EditIcon from '@mui/icons-material/Edit'; 
 import { Order } from 'interfaces/order.interface';
 import { OrderFormated } from 'interfaces/orderFormated.interface';
-import { User } from 'interfaces/user.interface';
-import { OrderDto } from 'interfaces/orderDto.interface';
-import handleEditButton from 'utils/handleEditButton';
 import { TypeEnum } from '@/enums/type.enum';
+import formatCurrency from 'utils/formatCurrency';
 
 type Props =  {
-  rows: Order[];
+  rows: { allOrders:Order[], total:number };
 }
 
 export default function DataGridOrders({ rows }: Props) {
@@ -61,8 +58,8 @@ export default function DataGridOrders({ rows }: Props) {
   ];
 
   useEffect(()=>{
-    if (rows && rows.length) {
-      const arrayRowsFormated = rows.map((orderInfo: Order) => {
+    if (rows && rows.allOrders && rows.allOrders.length) {
+      const arrayRowsFormated = rows.allOrders.map((orderInfo: Order) => {
         let type = 'Não identificado';
 
         switch (orderInfo.type) {
@@ -87,7 +84,7 @@ export default function DataGridOrders({ rows }: Props) {
           product: orderInfo.product,
           seller: orderInfo.seller,
           type: type,
-          price: `R$ ${orderInfo.price}`,
+          price: formatCurrency(orderInfo.price),
           date: new Date(orderInfo.date),
           updatedAt: new Date(orderInfo.updatedAt),
           createdAt: new Date(orderInfo.createdAt)
@@ -110,6 +107,7 @@ export default function DataGridOrders({ rows }: Props) {
           },
         }}
         pageSizeOptions={[10]}
+        disableColumnFilter
         disableRowSelectionOnClick
         localeText={ptBR.components.MuiDataGrid.defaultProps.localeText}
       />

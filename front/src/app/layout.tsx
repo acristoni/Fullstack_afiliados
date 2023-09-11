@@ -7,8 +7,8 @@ import DashboardIcon from '@mui/icons-material/Dashboard';
 import ThemeRegistry from '@/components/ThemeRegistry/ThemeRegistry';
 
 export const metadata = {
-  title: 'Gestão de Clientes - Grupo Cogna',
-  description: 'Gestão de Clientes - Grupo Cogna',
+  title: 'Gestão de Afiliados - Grupo Cogna',
+  description: 'Gestão de Afiliados - Grupo Cogna',
 };
 
 export default function RootLayout({ children }: { children: React.ReactNode }) {
@@ -20,7 +20,7 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
             <Toolbar sx={{ backgroundColor: 'background.paper' }}>
               <DashboardIcon sx={{ color: '#444', mr: 2, transform: 'translateY(-2px)' }} />
               <Typography variant="h6" noWrap component="div" color="black">
-                Gestão de Pedidos
+                Gestão de Afiliados
               </Typography>
             </Toolbar>
           </AppBar>

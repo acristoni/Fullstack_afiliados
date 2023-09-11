@@ -20,9 +20,28 @@ export class OrderService {
     return 'Microsserviço de pedidos em funcionamento!';
   }
 
-  async findAll(): Promise<OrderEntity[]> {
+  async findAll(): Promise<{ allOrders: OrderEntity[]; total: number }> {
     try {
-      return await this.orderRepository.find();
+      const allOrders = await this.orderRepository.find();
+
+      let total = 0;
+
+      const promises = allOrders.map(async (order) => {
+        if (order.signal === '-') {
+          total -= order.price;
+        } else if (order.signal === '+') {
+          total += order.price;
+        }
+
+        return;
+      });
+
+      await Promise.all(promises);
+
+      return {
+        allOrders,
+        total,
+      };
     } catch (err) {
       throw new InternalServerErrorException(err);
     }

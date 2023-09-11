@@ -31,3 +31,5 @@ yarn test:cov
 
 4. Trabalhei na listagem e no upload das vendas pelo front, e refatorei o processo de upload do arquivo, agora o mesmo é convertido no front para um array de strings e esse array é enviado para o back, economizando uso de banda.
 
+5. Refatorei o serviço de listagem no back para realizar o somatório dos pedidos e criei um exibidor desse totalizador no Front.
+
