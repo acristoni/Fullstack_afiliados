@@ -1,5 +1,5 @@
 # Marcenaria Diferente - Afiliados Fullstack
-Mono-repo contendo o Front-end em ReactJs(NextJs) e (2 microsserviços - usuário e pedidos)back-end em NestJs, para a TechSocial.
+Mono-repo contendo o Front-end em ReactJs(NextJs) e (2 microsserviços - usuário e pedidos)back-end em NestJs, para a Marcenaria Diferente.
 
 # Subir aplicação localmente
 Rode o comando para subir todos os containeres da aplicação
