@@ -1,8 +1,10 @@
 import { Alert, Button, Input } from "@mui/material";
+import { useRouter } from "next/navigation";
 import { useEffect, useState } from "react";
 import { postUpload } from "service/postUpload";
 
 export default function ButtonUpload() {
+    const router = useRouter()
     const [file, setFile] = useState<File | null>(null);
 
     const handleChange = (event: React.ChangeEvent<HTMLInputElement>) => {
@@ -10,6 +12,7 @@ export default function ButtonUpload() {
       };
     
     useEffect(() => {
+      if (file) {
         const uploadFile = async() => {
             const maxSize = 5 * 1024 * 1024 // Define o tamanho máximo permitido (5 MB)
             const allowedFileTypes = ['text/plain'];
@@ -23,12 +26,15 @@ export default function ButtonUpload() {
                 setFile(null)
               } else {
                 const response = await postUpload(file)
-                console.log("🚀 ~ file: ButtonUpload.tsx:24 ~ useEffect ~ response:", response)
+                if (response) {
+                  location.reload();
+                }
               }
             }
         }
         uploadFile();
-      }, [file]);
+      }
+    }, [file]);
 
     return (
         <Input 

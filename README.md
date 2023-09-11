@@ -29,3 +29,5 @@ yarn test:cov
 
 3. Trabalhei na entidade, criei enuns para tratar de maneira apropriada os tipos de vendas e desenvolvi o serviço para salvar as informações no bd, utilizando as Promises para otimizar o processamento com múltiplas threads.
 
+4. Trabalhei na listagem e no upload das vendas pelo front, e refatorei o processo de upload do arquivo, agora o mesmo é convertido no front para um array de strings e esse array é enviado para o back, economizando uso de banda.
+

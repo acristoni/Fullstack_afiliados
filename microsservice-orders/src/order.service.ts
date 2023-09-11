@@ -6,7 +6,6 @@ import {
 import { OrderEntity } from './order.entity';
 import { Repository } from 'typeorm';
 import { InjectRepository } from '@nestjs/typeorm';
-import { FileDto } from './dto/file.dto';
 import { SignalEnum } from './enums/signal.enum';
 import { TypeEnum } from './enums/type.enum';
 
@@ -39,11 +38,9 @@ export class OrderService {
     return order;
   }
 
-  async processSalesFile(file: FileDto): Promise<string> {
+  async processSales(data: string[]): Promise<string> {
     try {
-      const fileContent = file.buffer.toString('utf-8');
-      const lines = fileContent.split('\n');
-      const promises = lines.map(async (sale) => {
+      const promises = data.map(async (sale) => {
         if (sale && sale.length) {
           const newSale = new OrderEntity();
 

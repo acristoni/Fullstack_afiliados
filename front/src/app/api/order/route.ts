@@ -22,7 +22,6 @@ export async function GET(req: NextRequest) {
 
 export async function POST(req: NextRequest) {
     const res = await req.json()
-    console.log("🚀 ~ file: route.ts:25 ~ POST ~ res:", res)
     const cookieStore = cookies()
     const token = cookieStore.get('@token')
 
@@ -31,15 +30,13 @@ export async function POST(req: NextRequest) {
         "Authorization": `Bearer ${token?.value ? token.value : ''}` ,
     };
     
-    // const response = await fetch(`${process.env.URL_ORDER_MS}/`, { 
-    //     method: "POST",
-    //     headers: headersList,
-    //     body: JSON.stringify(res)
-    // });
+    const response = await fetch(`${process.env.URL_ORDER_MS}/`, { 
+        method: "POST",
+        headers: headersList,
+        body: JSON.stringify(res)
+    });
     
-    // const data = await response.text();
-    // const responseObj = JSON.parse(data)
-    // const message = responseObj.message
+    const message = await response.text();
 
-    // return NextResponse.json({ message })
+    return NextResponse.json({ message })
 }

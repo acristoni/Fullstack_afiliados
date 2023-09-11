@@ -1,22 +1,7 @@
-import {
-  Body,
-  Controller,
-  Get,
-  Param,
-  Post,
-  UploadedFile,
-  UseInterceptors,
-} from '@nestjs/common';
+import { Body, Controller, Get, Param, Post } from '@nestjs/common';
 import { OrderService } from './order.service';
-import {
-  ApiBearerAuth,
-  ApiConsumes,
-  ApiOperation,
-  ApiTags,
-} from '@nestjs/swagger';
-import { FileInterceptor } from '@nestjs/platform-express';
-import { FileDto } from './dto/file.dto';
-import { StorageDto } from './dto/storageFIle.dto';
+import { ApiBearerAuth, ApiOperation, ApiTags } from '@nestjs/swagger';
+import { CreateSalesDto } from './dto/crete-sales.dto';
 
 @ApiBearerAuth()
 @ApiTags('Pedidos')
@@ -48,13 +33,12 @@ export class OrderController {
     return await this.orderService.findOne(id);
   }
 
-  @Post('upload')
-  @ApiConsumes('multipart/form-data')
-  @UseInterceptors(FileInterceptor('file'))
-  async uploadFile(
-    @Body() _data: StorageDto,
-    @UploadedFile() file: FileDto,
-  ): Promise<string> {
-    return await this.orderService.processSalesFile(file);
+  @Post()
+  @ApiOperation({
+    summary:
+      'Recebe um array de string, onde cada elemento é a linha do arquivo "upado" no front, e persiste no bd',
+  })
+  async newSales(@Body() data: CreateSalesDto): Promise<string> {
+    return await this.orderService.processSales(data.lines);
   }
 }

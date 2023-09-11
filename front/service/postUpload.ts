@@ -1,28 +1,23 @@
-import axios from "axios";
-
 export async function postUpload(file: File) {
-    console.log("🚀 ~ file: postUpload.ts:4 ~ postUpload ~ file:", file)
-    if (file) {
-        const formData = new FormData();
-        formData.append("comprovante", file); 
-  
-        const headersList = {
-          "Accept": "*/*",
-          'Content-Type': 'multipart/form-data',
-        }
-        
-        let reqOptions = {
-            url: `${process.env.URL_FRONT}/api/order`,
-            method: "POST",
-            data: formData,
-            headers: headersList,
-        }
     
-        try {
-          const response = await axios.request(reqOptions);          
-          return response.data;  
-        } catch (error) {
-            return Promise.reject(error)
-        } 
+    if (file) {
+      const fileContent = await file.text()
+      const arrayLines = fileContent.split('\n')
+
+      const headersList = {
+        "Content-Type": "application/json"
       }
+
+      const bodyContent = JSON.stringify({
+        lines: arrayLines
+      });
+  
+      await fetch(`${process.env.URL_FRONT}/api/order`, { 
+          method: "POST",
+          body: bodyContent,
+          headers: headersList
+      });
+      
+      return true;
+    }
 }
