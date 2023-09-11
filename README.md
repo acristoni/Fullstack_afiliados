@@ -13,9 +13,9 @@ sudo docker-compose up --build
 [Documentação microsserviço pedido, com Swagger](http://localhost:3333/api)
 
 # Testes
-Realizei uma cobertura de testes unitários em cada microsserviço.
+Realizei uma cobertura de testes unitários no microsserviço de usuários, como exemplo de teste unitário.
 
-Nas pastas **microsservice-orders/ e microsservice-users/**
+Na pasta **microsservice-users/**
 
 Teste unitários:
 ```
