@@ -7,33 +7,37 @@ import { OrderFormated } from 'interfaces/orderFormated.interface';
 import { User } from 'interfaces/user.interface';
 import { OrderDto } from 'interfaces/orderDto.interface';
 import handleEditButton from 'utils/handleEditButton';
+import { TypeEnum } from '@/enums/type.enum';
 
 type Props =  {
   rows: Order[];
-  userList: User[] | undefined;
-  setEditOrder: (editClient: { orderDto: OrderDto, idOrder: string }) => void;
 }
 
-export default function DataGridClients({ rows, userList, setEditOrder }: Props) {
+export default function DataGridOrders({ rows }: Props) {
   const [rowsFormated, setRowsFormated] = useState<OrderFormated[]>([])
 
   const columns: GridColDef[] = [
     { field: 'id', headerName: 'ID', width: 100 },
     {
-      field: 'responsable',
-      headerName: 'Responsável',
+      field: 'type',
+      headerName: 'Tipo',
       width: 200,
     },
     {
-      field: 'description',
-      headerName: 'Descrição',
+      field: 'date',
+      headerName: 'Data',
+      width: 100,
+      type: 'date'
+    },
+    {
+      field: 'product',
+      headerName: 'Produto',
       width: 300,
     },
     {
-      field: 'quantity',
-      headerName: 'Quantidade',
-      width: 10,
-      type: 'number'
+      field: 'seller',
+      headerName: 'Vendedor',
+      width: 300,
     },
     {
       field: 'price',
@@ -54,37 +58,37 @@ export default function DataGridClients({ rows, userList, setEditOrder }: Props)
       width: 100,
       type: 'date'
     },
-    {
-      field: 'edit',
-      headerName: 'Editar',
-      width: 100,
-      sortable: false,
-      filterable: false,
-      renderCell: (params) => (
-        <button
-        id="ButtonEditar"
-          onClick={()=>handleEditButton(params, setEditOrder, rows)}
-          style={{
-            background: 'none',
-            border: 'none',
-            cursor: 'pointer',
-          }}
-        >
-          <EditIcon color="primary" />
-        </button>
-      ),
-    },
   ];
 
   useEffect(()=>{
-    if (rows && rows.length && userList && userList.length) {
+    if (rows && rows.length) {
       const arrayRowsFormated = rows.map((orderInfo: Order) => {
-        const userResponsable = userList.find(user => user.id === orderInfo.user_id);
+        let type = 'Não identificado';
+
+        switch (orderInfo.type) {
+          case TypeEnum.COMMISSIONPAID:
+            type = "Comissão paga"
+            break;
+          case TypeEnum.COMMISSIONRECEIVED:
+            type = "Comissão recebida"
+            break;
+          case TypeEnum.SALEAFFILIATE:
+            type = "Venda afiliado"
+            break;
+          case TypeEnum.SALEPRODUCER:
+            type = "Venda produtor"
+            break;
+          default:
+            break;
+        }
+
         return {
-          ...orderInfo,
-          responsable: 
-            userResponsable?.first_name ? `${userResponsable.first_name} ${userResponsable.last_name}` : 'Usuário não cadastrado',
+          id: orderInfo.id,
+          product: orderInfo.product,
+          seller: orderInfo.seller,
+          type: type,
           price: `R$ ${orderInfo.price}`,
+          date: new Date(orderInfo.date),
           updatedAt: new Date(orderInfo.updatedAt),
           createdAt: new Date(orderInfo.createdAt)
         }  
